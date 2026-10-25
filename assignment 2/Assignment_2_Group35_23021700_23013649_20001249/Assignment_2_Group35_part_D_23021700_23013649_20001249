@@ -1,0 +1,77 @@
+//Insert the data
+
+db.hobbits.insert({name: "Bilbo Baggins", dob: new Date(1992,2,13,7,47), loves:["horse riding","surfing"],weight: 45, gender: "m", cash: 3000});
+
+db.hobbits.insert({name: "Rosie-Posie", dob: new Date(1961, 0, 24, 13, 0), loves: ["horse riding", "chess"], weight: 63, gender: "f", cash: 2250});
+
+db.hobbits.insert({name: "Bingo Deepdelver", dob: new Date(1963, 1, 9, 22, 10), loves: ["scrabble", "basketball"], weight: 72, gender: "m", cash: 9000});
+
+db.hobbits.insert({name: "Samwise Deepdelver", dob: new Date(1990, 7, 18, 18, 44), loves: ["cricket"],weight: 69, gender: "m", cash: 8000});
+
+db.hobbits.insert({name: "Dora Toadfoot", dob: new Date(1985, 6, 4, 2, 1), loves:["cricket", "horse riding", "trekking"], weight:60, gender:"f", cash:6000});
+
+db.hobbits.insert({name:"Kennoy Dippy", dob: new Date(1997, 6, 1, 10, 42), loves: ["chess", "rugby"],weight: 69, gender: "m", cash: 500});
+
+db.hobbits.insert({name: "Rajaram Ghoda", dob: new Date(1985, 4, 3, 0, 57), loves: ["cricket", "boxing"],weight: 101, gender: "m", cash: 6500});
+
+db.hobbits.insert({name: "Dolly Boffin", dob: new Date(1968, 9, 8, 14, 53), loves: ["cricket", "dancing"], weight: 52, gender: "f", cash: 6000});
+
+db.hobbits.insert({name: "Ayna Shyna", dob: new Date(1958, 2, 7, 8, 30), loves: ["singing", "dancing"], weight: 73, gender: "f", cash: 5000});
+
+db.hobbits.insert({name: "Lynx Todka", dob: new Date(1960, 2, 7, 8, 30), loves: ["singing", "dancing","horse riding"], weight: 93, gender: "m", cash: 5500});
+
+db.hobbits.insert({name: "Aria Lyaria", dob: new Date(1964, 1, 9, 8, 40), loves: ["chess", "snooker","horse riding"], weight: 83, gender: "f", cash: 6500});
+
+db.hobbits.insert({name: "Tane Shane", dob: new Date(1990, 3, 7, 9, 30), loves: ["singing", "dancing","horse riding"], weight: 98, gender: "m", cash: 5500});
+
+db.hobbits.insert({name: "Tui Shui", dob: new Date(1975, 2, 8, 10, 30), loves: ["singing", "dancing","rugby"], weight: 75, gender: "f", cash: 7800});
+
+db.hobbits.insert({name: "Tamati Shamati", dob: new Date(1991, 1, 7, 7, 30), loves: ["rugby", "soccer","go carting"], weight: 93, gender: "m", cash: 9500});
+
+db.hobbits.insert({name: "Sheroo Beroo", dob: new Date(1999, 7, 7, 8, 25), loves: ["kite flying", "kabaadi","cricket", "stapu"], weight: 88, gender: "m", cash: 7500});
+
+//create the mapping output
+var mapSectionD = function() {
+    emit(this.gender, { totalWeight: this.weight, count: 1 });
+};
+
+//calculate the average weight by sex
+var reduceSectionD = function(key, values) {
+    var reduced = { totalWeight: 0, count: 0, avgWeight: 0 };
+
+    values.forEach(function(value) {
+        reduced.totalWeight += value.totalWeight;
+        reduced.count += value.count;
+    });
+
+    if (reduced.count > 0) {
+        reduced.avgWeight = reduced.totalWeight / reduced.count;
+    }
+
+    return reduced;
+};
+
+//specify the output
+db.hobbits.mapReduce(
+    mapSectionD,
+    reduceSectionD,
+    {
+        out: "hobbits_SectionD"
+    }
+);
+
+//call the output
+db.hobbits_SectionD.find();
+
+
+//using aggregate pipelines
+db.hobbits.aggregate( 
+    [ 
+        { 
+            $group: 
+                { _id:"$gender",
+                avgweight:{ $avg:"$weight"}
+            }
+        }
+    ]
+)

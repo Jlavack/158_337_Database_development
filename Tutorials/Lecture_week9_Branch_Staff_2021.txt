@@ -1,0 +1,61 @@
+create table branch (br_branchno varchar(4), 
+br_branchname varchar(20),
+br_street varchar(40) not null unique,
+br_city varchar(20), br_state varchar(2), br_zipcode varchar(5),
+br_phone varchar(10), 
+br_fax varchar(10),
+br_per_mgt_fee number,
+br_email varchar(25),
+constraint br_primarykey primary key (br_branchno));
+
+create table staff (st_staffno varchar(4) primary key,
+st_name varchar(40), 
+st_position varchar(20), 
+st_sex char(1), 
+st_birthdate date,
+st_hiredate date,
+st_salary number(6),
+st_commperc number, 
+st_br_branchno varchar(4),
+constraint fk_staff1 foreign key (st_br_branchno) references branch (br_branchno));
+
+insert into branch values ('B001', 'Fort Bend', '4623 Williams Trace, Suite A', 'Sugar Land', 'TX', '77479', '2812406033', '2812406034', .15, 'Fort_bend@ppj.com');
+insert into branch values ('B002', 'Inner Loop', '1134 West Loop South, Suite 600', 'Houston', 'TX', '77027', '7139652145', '7139652146', .18, 'Inner_loop@ppj.com');
+insert into branch values ('B003', 'Memorial', '14210 Memorial, Suite 100', 'Houston', 'TX', '77079', '2814930388', '2814930111', .175, 'Memorial@ppj.com');
+insert into branch values ('B004', 'Northwest', '5500 FM 1960 West, Suite 500', 'Houston', 'TX', '77069', '2814401444', '2814404222', .12, 'Northwest@ppj.com');
+insert into branch values ('B005', 'West', '7800 Highway 6 North, Suite 145', 'Houston', 'TX', '77095', '2814634111', '2818508204', .125, 'West@ppj.com');
+insert into branch values ('B006', 'The Woodlands', '9300 Six Pines Drive, Suite 500', 'The Woodlands', 'TX', '77380', '2813639123', '2813639124', .15,'The_woodlands@ppj.com');
+insert into branch values ('B007', 'Brenham', '605 Austin Boulevard', 'Brenham', 'TX', '77833', '9798367222', '9798367221', .075, 'Brenham@ppj.com');
+insert into branch values ('B008', 'Round Top', '100 Bauer Napier Road', 'Round Top', 'TX', '78954', '9792493423', '9792495323', .05, 'Round_top@ppj.com');
+
+insert into staff values ('S021', 'Blake Ives',  'Manager', 'M', '01-OCT-1958', '03-OCT-2002', 80000, null, 'B002');
+insert into staff values ('S037', 'Randolph B. Cooper', 'Manager', 'M', '10-NOV-1960', '11-NOV-1993', 75000, null, 'B006');
+insert into staff values ('S014', 'Wynne Chin',  'Manager', 'M', '24-MAR-1968', '26-AUG-2000', 74500, null, 'B001');
+insert into staff values ('S009', 'Iris Junglas',  'Manager', 'F', '19-FEB-1976', '29-FEB-1996', 70000, null, 'B003');
+insert into staff values ('S005', 'Dennis A. Adams', 'Manager', 'M', '03-JUN-1965', '15-MAR-1991', 75000, NULL, 'B004');
+insert into staff values ('S041', 'Kathy M. Cossick', 'Manager', 'F', '13-JUN-1968', '23-JUN-1998', 72000, null, 'B007');
+insert into staff values ('S023', 'Manjari Mehta',  'Supervisor', 'F', '25-SEP-1980', '01-JUL-2001', 45000, .0025, 'B005');
+insert into staff values ('S033', 'Shince Francis',  'Supervisor', 'M', '12-DEC-1981', '18-NOV-2003', 40000, .0030, 'B007');
+insert into staff values ('S055', 'Amy Li',  'Assistant', 'F', '11-AUG-1975', '27-JAN-2003', 32000, .0004, 'B007');
+insert into staff values ('S022', 'Kira Radtke',  'Assistant', 'F', '28-JUN-1982', '16-JUN-2001', 28000, .0007, 'B008');
+insert into staff values ('S013', 'Richard W. Scamell', 'Assistant', 'M', '10-MAY-1912', '03-SEP-1934', 15000, null, 'B002');
+insert into staff values ('S016', 'Andrew W. Newman', 'Supervisor', 'M', '16-JAN-1975', '12-DEC-1999', 35500, .0034, 'B001');
+insert into staff values ('S045', 'M. Anderson Chadwick', 'Supervisor', 'M', '31-MAY-1978', '02-FEB-1998', 40000, .0045, 'B003');
+insert into staff values ('S006', 'James B. Stinson', 'Supervisor', 'M', '23-MAR-1969', '24-DEC-2001', 42500, .0050, 'B004');
+insert into staff values ('S076', 'Sharon S. Moore', 'Assistant', 'F', '03-SEP-1976', '09-SEP-1998', 25650, .0009, 'B003');
+insert into staff values ('S053', 'James Britton', 'Supervisor', 'M', '21-NOV-1960', '25-JUL-2006', 31000, .0020, 'B006');
+insert into staff values ('S031', 'Sachin Nikam', 'Supervisor', 'M', null, '01-SEP-2003', 43000, .0025, 'B005');
+
+column br_branchno format a11
+column br_state format a8
+column br_zipcode format a10
+column st_sex format a6
+column st_birthdate format a12
+column st_hiredate format a11
+column st_br_branchno format a14
+
+
+describe staff
+select * from staff;
+describe branch
+select * from branch;

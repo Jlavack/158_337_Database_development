@@ -1,0 +1,52 @@
+Applicants can have many job histories
+Job histories can have only one applicant
+
+Each company has many job histories
+each job history has only one company
+
+Each applicant has many qualifications
+each qualification can have many applicants
+
+companies can have multiple applicants
+each applicant can be in only one company
+
+Agency offers some qualifications (applicant_qualification) 
+not all qualifications are offered by agency
+
+each course is for one qualification
+qualifications can have many courses
+
+courses have 0 or many pre-requisite courses
+a course can be a pre-req for 0 or many qualifications
+
+every session is for one and only one course
+each course can have many sessions
+
+each course-session has an enrollment
+each applicant can be enrolled in 0 or many courses
+
+an applicant can enroll in many sessions
+sessions can have many applicants
+sessions have scheduled times
+enrollments must occur 1 week or greater before start date
+there are two types of session; practical and theoretical
+10 and 20 applicants respectively
+
+companies / branches can be in one location only
+applicants can be in one location only
+Agency has many branches
+
+each opening has one location and company
+each company and location has many openings
+
+every opening has 0 or many qualificaiton requirements
+
+many applicants can fill an opening
+an opening can be applied to by many applicants
+
+each placement has one and only one opening
+each opening has zero or one placements
+
+each placement has one applicant
+each applicant history has many filled applications.
+
